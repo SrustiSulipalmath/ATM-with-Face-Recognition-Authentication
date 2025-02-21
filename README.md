@@ -3,6 +3,8 @@
 Project Overview:
 This project is an ATM-like system where users must verify their identity using facial recognition before entering their PIN and proceeding with transactions. The system was developed using HTML, CSS, and JavaScript for the front end, with Flask managing the backend.
 
+## 1. Initial Attempt – FaceIO (Not Used Due to Cost)
+
 🔍 Current Status & Issues:
 
 ✅ Implemented Features:
@@ -25,5 +27,32 @@ Enhance UI/UX for a more interactive experience.
 Frontend: HTML, CSS, JavaScript
 Backend: Flask (Python)
 Face Recognition (To be Fixed): FaceIO (Replaceable with OpenCV/DeepFace)
-🛠️ Contributions & Fixes Welcome!
-If you're interested in fixing bugs or adding new features, feel free to fork the project and submit a pull request. Let's make this a fully functional ATM system! 
+
+
+## 2. Second Attempt – MediaPipe + DeepFace (Incomplete & Not Fully Functional)
+
+To make the project fully free and offline, MediaPipe was used for face detection on the frontend, and DeepFace was attempted for face verification on the backend with Flask.
+
+✅ Implemented Components:
+
+MediaPipe captures face images from the webcam (Frontend).
+Flask backend receives the face image and attempts verification using DeepFace.
+
+⚠️ Known Issues & Incomplete Features:
+Face verification is not working properly – DeepFace integration is incomplete and has processing issues.
+Some functionalities are not handled properly – Backend may fail to process requests correctly.
+Session management issues – No proper handling of user authentication states.
+Flask backend is incomplete – Needs better integration with the frontend and database 
+
+📌 Tech Stack Used:
+Frontend: HTML, CSS, JavaScript
+Face Recognition (Attempted but Incomplete):
+  FaceIO (Removed due to cost)
+  MediaPipe + DeepFace (Integration issues)
+Backend: Flask (Python)
+
+🛠️ Project Status: Incomplete
+Since this project is not fully functional, further development is needed to make face verification work and fix incomplete functionalities.
+
+🚀 Contributions & Fixes Welcome!
+If you're interested in debugging the issues, fixing face verification, or improving transaction handling, feel free to fork this project and submit a pull request!
