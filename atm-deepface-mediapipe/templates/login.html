@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login - ATM Project</title>
+        <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #0a0a0f;
+            --cyber-gradient: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(188, 19, 254, 0.1) 0%, transparent 100%),
+                linear-gradient(to bottom right, #0a0a0f 0%, #1a1a2f 100%);
+        }
+
+        .login-form {
+            background: rgba(10, 10, 15, 0.95);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 2em;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .webcam-container {
+            border: 2px solid var(--neon-purple);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        #capture-btn, #loginBtn {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            border: none;
+            padding: 12px 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #capture-btn:hover, #loginBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(188, 19, 254, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 16px;
+            margin-top: 1rem;
+        }
+    </style>
+    </head>
+    <body>
+
+        
+        <div class="login-form">
+            <h2>Face Recognition Login</h2>
+
+            <div class="form-group">
+                <label for="account">Account Number:</label>
+                <input type="text" id="account" placeholder="Enter your account number" required>
+            </div>
+
+            <div class="webcam-container">
+                <video id="webcam" autoplay></video>
+            </div>
+            <button id="capture-btn">Verify Face</button>
+
+            <div id="pin-section" class="hidden">
+                <h2>Enter PIN</h2>
+                <input type="password" id="pin" placeholder="Enter your PIN">
+                <button type="button" id="loginBtn">Face Login</button>
+            </div>
+        </div>
+
+       <script>
+        const captureBtn = document.getElementById("capture-btn");
+        const pinSection = document.getElementById("pin-section");
+        const webcam = document.getElementById("webcam");
+        let capturedFace = null;
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { webcam.srcObject = stream; })
+            .catch(error => {
+                console.error("Webcam access denied", error);
+                alert('Webcam access required for login');
+            });
+            
+
+        captureBtn.addEventListener("click", async () => {
+
+            const account = document.getElementById("account").value; // Get from input
+            if (!account) {
+                alert('Please enter account number');
+                return;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            canvas.getContext('2d').drawImage(webcam, 0, 0);
+            capturedFace = canvas.toDataURL('image/jpeg');
+
+            // Add image size check
+            if (capturedFace.length < 50000) { // ~50KB minimum
+                alert('Low quality image captured. Please try again');
+                return;
+            }
+
+            try {
+                const response = await fetch('/verify-face', {  // Removed /api/auth
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ account: account, faceImage: capturedFace })
+
+            });
+
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem("username", data.user); // Store username for PIN login
+                    pinSection.classList.remove("hidden");
+                } else {
+                    alert("Face verification failed");
+                }
+
+                
+            } catch (error) {
+                console.error('Verification error:', error);
+                alert('Face verification error');
+            }
+        });
+
+        document.getElementById("loginBtn").addEventListener("click", async () => {
+    const pin = document.getElementById("pin").value;
+    const account = document.getElementById("account").value;
+    
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ account, pin })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            localStorage.setItem('user', JSON.stringify(data.user));
+            window.location.href = 'dashboard.html';
+        } else {
+            alert(data.message || 'Login failed');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed');
+    }
+});
+    </script>
+    
+    </body>
+</html>

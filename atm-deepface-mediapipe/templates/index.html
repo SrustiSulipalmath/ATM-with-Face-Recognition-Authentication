@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber ATM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+        
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #9a00ff;
+            --neon-pink: #ff007f;
+            --cyber-bg: #080808;
+            --cyber-gradient: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--cyber-bg);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 3rem 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: var(--cyber-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            background: var(--cyber-gradient);
+            border-radius: 8px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--cyber-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+        }
+
+        .bullet-list {
+            text-align: left;
+            padding-left: 1.5rem;
+            list-style: none;
+        }
+
+        .bullet-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .bullet-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--neon-purple);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Cyber ATM</h1>
+        <p>Experience next-gen security with AI-Powered Face Recognition</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">👁️</div>
+                <h2>Biometric Security</h2>
+                <p>State-of-the-art facial recognition combined with liveness detection</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">🔐</div>
+                <h2>Military-Grade Encryption</h2>
+                <p>256-bit SSL encryption for all transactions</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h2>Instant Transactions</h2>
+                <p>Real-time processing with 99.99% uptime</p>
+            </div>
+        </div>
+    </div>
+    <a href="register.html" class="btn">Register</a>
+    <a href="login.html" class="btn">Login</a>
+</body>
+</html>
