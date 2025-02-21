@@ -1,0 +1,85 @@
+<!-- <style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f2f5;
+}
+
+.registration-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.webcam-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#video {
+    width: 100%;
+    height: auto;
+}
+
+#capture-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#capture-btn:hover {
+    background: #0056b3;
+}
+
+#preview {
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-btn {
+    background: #28a745;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background: #218838;
+}
+</style> -->
